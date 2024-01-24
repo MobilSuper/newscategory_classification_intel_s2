@@ -30,5 +30,23 @@ for l in range(6):
             time.sleep(0.5)
 
         except:
-            print('drvier.get')
+            print('drvier.get', l, k)
+
+        for i in range(1, 5):
+            for j in range(1, 6):
+                try:
+                    title = driver.find_element('xpath', '//*[@id="section_body"]/ul[{}]/li[{}]/dl/dt[2]/a'.format(i,j)).text
+                    title = re.compile('[^가-힣]').sub(' '. title)
+                    titles.append(title)
+                except:
+                    print('find element', l, k, i, j)
+
+            if k%5 == 0:
+                # print(titles)
+                # print(len(titles))
+                print(l, k)
+                df_section_title = pd.DataFrame(titles, columns=['titles'])
+                df_section_title['category'] = category[l]
+
+
 
